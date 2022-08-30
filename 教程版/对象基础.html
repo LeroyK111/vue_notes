@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script type="text/javascript">
+    let person = {
+      name: "占山",
+      age: 12,
+    };
+
+    // 对对象进行增改，新增的元素颜色不一致，不能被枚举
+    Object.defineProperty(person, "gender", {
+      value: "girl",
+      // 控制是否可以枚举
+      // enumerable: true,
+    });
+    console.log(person);
+    // 验证能否枚举
+    console.log(Object.entries(person));
+    // 单独取出
+    console.log(person.gender);
+  </script>
+</html>

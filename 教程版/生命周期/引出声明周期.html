@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2 v-if="a">你好啊</h2>
+      <h2 :style="{opacity}">欢迎学习VUE</h2>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: "#root",
+      data() {
+        return {
+          a:false,
+          opacity: 1,
+        };
+      },
+
+
+
+
+
+
+
+      // vue生命周期==执行流程，mouted就是vue最后一步,this指向vue
+      // VUE完成模板的解析，并把真实的DOM元素放入页面后，调用mouted
+      mounted() {
+        console.log('mounted');
+        // 我们在这里开启定时器
+        change(this);
+        // 这里我们再把元素展示出来
+        this.a = true;
+      },
+    });
+
+    function change(vue) {
+      setInterval(() => {
+        vue.opacity -= 0.01;
+        if (vue.opacity <= 0) vue.opacity = 1;
+      }, 16);
+    }
+  </script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div class="root">
+      <h1>{{text}}</h1>
+      <!-- Vue常用别名
+      回车 enter
+      删除 delete
+      退出 esc
+      空格 space
+      换行 tab 特殊，必须配合keydown
+      上up
+      下down
+      左left
+      右right
+      
+      系统修饰键，配合keydown or 组合键松开触发
+      ctrl
+      shift
+      alt  
+      meta 菜单键
+      -->
+      <input
+        type="text"
+        placeholder="按下回车提示输入"
+        @keyup.enter="showInfo"
+      />
+      <!-- 大小切换 -->
+      <input type="text" placeholder="按下回车提示输入" @keyup.caps-lock="show" />
+      <!-- 测试 -->
+      <input type="text" placeholder="按下回车提示输入" @keyup="show" />
+      <!-- 使用自定义键名，只有回车+y时，才会触发 -->
+      <input type="text" @keyup.rollback.y="demo" placeholder="测试自定义键名">
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    // 自定义key
+    Vue.config.keyCodes.rollback = 8;
+
+    const vm = new Vue({
+      el: ".root",
+      data() {
+        return {
+          text: "测试",
+        };
+      },
+      methods: {
+        showInfo(e) {
+          // 不然还得判断e.keyCode，
+          console.log(e.target.value);
+        },
+        show(e) {
+          // 实验性质
+          console.log(e.key, e.keyCode);
+        },
+        demo(e) {
+          // 实验自定义键名
+          console.log(e.key, e.keyCode);
+        },
+      },
+    });
+  </script>
+</html>

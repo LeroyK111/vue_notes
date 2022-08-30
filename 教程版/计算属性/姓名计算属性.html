@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓<input type="text" v-model="firstName" /><br />
+      名<input type="text" v-model="lastName" /><br />
+      姓名:<span>{{fullName}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const v = new Vue({
+      el: "#root",
+      // 计算属性，能够使用的就是data内的属性
+      data() {
+        return {
+          firstName: "张",
+          lastName: "三",
+        };
+      },
+      // 配置计算属性,
+      computed: {
+        fullName: {
+          // 当有人读取fullName时，get就起到作用。依然是Object.defineProperty的方法
+          /*
+        1.初次读取fullName时，就会缓存，不会多次调用fullName计算属性，降低计算损耗
+        2.其次依赖数据改变时，会重新改变,并缓存
+        */
+          get() {
+            console.log("我被读取了");
+            // 直接用this
+            return this.firstName + this.lastName;
+          },
+          // 一般不用set，计算出来的属性不修改
+          set(value) {
+            // 同时修改,形成闭环联动
+            console.log("我被修改了");
+            const arr = value.split("-");
+            this.firstName = arr[0];
+            this.lastName = arr[1];
+          },
+        },
+      },
+    });
+    console.log(v);
+  </script>
+</html>

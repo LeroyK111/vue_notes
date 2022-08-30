@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+    <style>
+      .basic {
+        width: 400px;
+        height: 200px;
+        border: 2px solid #ccc;
+      }
+
+      .happy {
+        background-color: red;
+        color: #fff;
+      }
+
+      .lovely {
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 正常的样式正常写，变化的样式加一个: -->
+      <!-- 两个样式会合并，叫做字符串写法，适合动态指定 -->
+      <div class="basic " :class="mood" @click="changeBack">{{name}}</div>
+      <!-- 数组写法 -->
+      <div class="basic " :class="classArr" >{{name}}</div>
+      <!-- 对象写法 -->
+      <div class="basic" :class="classObj">{{name}}</div>
+      <!-- style写法 -->
+      <div class="basic" :style="styleObj" >{{text}}</div>
+      <!-- 这个真不好用 -->
+      <div class="basic" :style="[styleObj, styleObj2]" >{{text}}</div>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          name:'测试class，点我',
+          mood:'happy',
+          text:'测试style',
+          // 批量设置样式
+          classArr:['happy', null, 'lovely'],
+          // 对象则可以bool值，筛选组合样式
+          classObj:{
+            happy:true,
+            lovely:false
+          },
+          // 测试样式
+          styleObj:{
+            fontSize: '40px',
+            color:'red',
+          },
+          // 数组写法
+          styleObj2:{
+            backgroundColor:'orange'
+          }
+        }
+      },
+
+      methods: {
+        changeBack(){
+          // this.mood = 'lovely';
+          const arr = ['lovely', 'happy', null]
+          // 随机取数
+          const index = Math.floor(Math.random()*3);
+          // 这就是随机样式
+          this.mood = arr[index];
+        },
+      },
+
+    });
+  </script>
+</html>

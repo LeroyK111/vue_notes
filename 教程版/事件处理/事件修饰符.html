@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue@2.6.14.js"></script>
+  <style>
+    .list {
+      width: 200px;
+      height: 200px;
+      background-color: pink;
+      overflow: auto;
+    }
+
+    .list li {
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <h2>好好学习{{workroom}}</h2>
+    <!-- 这里就是加入特殊符号，阻止默认事件了，可以连写， -->
+    <a href="https://www.baidu.com" @click.prevent.stop="showInfo">点我提示信息</a>
+
+    <!-- passive事件修饰，移动端必用 -->
+    <ul @wheel.passive="demo" class="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </div>
+</body>
+<script>
+  /*
+  Vue中的事件修饰符号
+  prevent阻止默认事件
+  stop阻止事件冒泡
+  once事件只触发一次
+  capture事件捕获
+  self只有event.target是当前操作元素才触发事件
+  passive事件默认行为立即执行，无需等待事件回调
+  */
+  Vue.config.productionTip = false;
+  new Vue({
+    el:'#root',
+    data() {
+      return {
+        workroo:'世界'
+      }
+    },
+    methods: {
+      showInfo(e){
+        // 阻止默认事件
+        // e.preventDefault();
+        alert("你好")
+      },
+      // 给鼠标滚轮添加事件
+      demo(e){
+        // 我滚动触发了事件，但是对元素行为形成了阻塞，造成卡顿
+        console.log(e.wheelDeltaY);
+        for (let index = 0; index < 1000000; index++) {
+          console.log('#');
+        }
+        console.log('累坏了');
+      }
+    },
+  })
+  
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <button @click="log">{{message}}</button>
+      <vc></vc>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    /*
+    说白了，就是让vc继承了vm部分属性和方法，通过原型链实现
+    */
+    const vc = {
+      template: `<div><button @click="text">{{msg}}</button></div>`,
+      data() {
+        return {
+          msg: "点我的测试vc",
+        };
+      },
+      methods: {
+        text() {
+          // 这里el指向template
+          console.log(this.$el);
+        },
+      },
+    };
+
+    const vm = new Vue({
+      el: "#root",
+      data() {
+        return {
+          message: "点我的测试vm",
+        };
+      },
+      methods: {
+        log() {
+          // 这里指向el
+          console.log(this.$el);
+        },
+      },
+      components: {
+        vc,
+      },
+    });
+  </script>
+</html>

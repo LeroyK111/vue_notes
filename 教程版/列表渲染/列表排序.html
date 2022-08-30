@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>遍历数组</h2>
+      <input type="search" placeholder="输入关键字" v-model="keyword" />
+      <button @click="sortType=2">年龄升序</button>
+      <button @click="sortType=1">年龄降序</button>
+      <button @click="sortType=0">原序列</button>
+      <ul>
+        <li v-for="(p,index) in newData" :key="p.id">{{p.name}}-{{p.age}}</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          keyword: "",
+          persons: [
+            { id: "001", name: "张三", age: 18 },
+            { id: "002", name: "王五", age: 19 },
+            { id: "003", name: "李四", age: 20 },
+            { id: "004", name: "三哥", age: 18 },
+            { id: "005", name: "五弟弟", age: 19 },
+            { id: "006", name: "四姐", age: 20 },
+          ],
+          // 0不排列，1降序，2升序
+          sortType: 0,
+        };
+      },
+      computed: {
+        newData() {
+          const data = this.persons.filter((p) => {
+            return p.name.indexOf(this.keyword) != -1;
+          });
+
+          // data进行排序
+          if (this.sortType) {
+            data.sort((a, b) => {
+              return this.sortType === 1 ? a.age - b.age : b.age - a.age;
+            });
+          }
+          return data
+        },
+      },
+    });
+  </script>
+</html>

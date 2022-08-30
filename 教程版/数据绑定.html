@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div class="root">
+      <!-- v-bind渲染数据 -->
+      单向数据绑定: <input type="text" :value="name" /><br>
+      <!-- v-model模型数据 -->
+      双向数据绑定: <input type="text" v-model:vlaue="name"><br>
+      <!-- 双向数据简写 -->
+      简写双向<input type="text" v-model="name"><br>
+      <!-- v-model只能应用再输入类标签，自身带有value属性 -->
+      
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+    new Vue({
+      el: ".root",
+      data: {
+        name: "尚硅谷",
+      },
+    });
+  </script>
+</html>

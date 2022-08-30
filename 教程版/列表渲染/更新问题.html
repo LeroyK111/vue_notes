@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>更新时，无法监控</h2>
+      <button @click="update">点我更新张三的年龄</button>
+      <ul>
+        <li v-for="(p,index) in persons" :key="p.id">{{p.name}}-{{p.age}}</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          persons: [
+            { id: "001", name: "张三", age: 18 },
+            { id: "002", name: "王五", age: 19 },
+            { id: "003", name: "李四", age: 20 },
+            { id: "004", name: "三哥", age: 18 },
+            { id: "005", name: "五弟弟", age: 19 },
+            { id: "006", name: "四姐", age: 20 },
+          ],
+        };
+      },
+      methods: {
+        update() {
+          // this.persons[0].name = "法外狂徒"; // 奏效
+
+
+
+          // 这样修改，vue无法监测到数据改变，但是内存已经改变了
+          // this.persons[0] = { id: "001", name: "法外狂徒张三", age: 18 };
+          // 这个值没有经过set方法，导致无法重新渲染页面
+
+
+          // 只有七个方法才能触发更新，
+          this.persons.splice(0, 1, {
+            id: "001",
+            name: "法外狂徒张三",
+            age: 18,
+          });
+        },
+      },
+    });
+
+    console.log(v);
+
+    // push被包装
+    console.log(v.persons.push === Array.prototype.push);
+  </script>
+</html>

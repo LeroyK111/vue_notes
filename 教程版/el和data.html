@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>{{name}}</h1>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+    // 构造实例化
+    const v = new Vue({
+      // el: "#root",// 当我不用构造函数时，可以使用$xxx进行二次挂载
+      // data: {
+      // name: "对象式写法",
+      // },
+
+      // data函数式写法，不能写箭头函数，指向对象不同
+      data: function (param) {
+        // this时vue实例对象
+        console.log("@@@", this);
+        return {
+          // 学习组件后，必须函数写法
+          name: "函数式写法",
+        };
+      },
+
+      // 简写方法
+      // data() {
+      //   return {
+      //     name: "函数式写法",
+      //   }
+      // },
+    });
+    console.log(v);
+    // 实例化后，挂在属性
+    setTimeout(() => {
+      v.$mount("#root");
+    }, 1000);
+  </script>
+</html>

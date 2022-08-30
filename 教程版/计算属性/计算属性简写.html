@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓<input type="text" v-model="firstName" /><br />
+      名<input type="text" v-model="lastName" /><br />
+      姓名:<span>{{fullName}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const v = new Vue({
+      el: "#root",
+      // 计算属性，能够使用的就是data内的属性
+      data() {
+        return {
+          firstName: "张",
+          lastName: "三",
+        };
+      },
+      // 如果只有get，那就可以简写
+      computed: {
+        fullName: function () {return this.firstName + this.lastName  },
+      },
+    });
+    console.log(v);
+  </script>
+</html>

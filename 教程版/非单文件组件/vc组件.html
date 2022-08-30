@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <school></school>
+      <hello />
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    // 定义一个组件
+    const school = Vue.extend({
+      name: "school",
+      template: `<div>
+        <h2>学校:{{name}}</h2>
+        <h2>女校嘛:{{flag}}</h2>
+        <button @click="showInfo">点我显示this</button>
+      </div>`,
+      data() {
+        return {
+          name: "女子院校",
+          flag: true,
+        };
+      },
+      methods: {
+        showInfo() {
+          // 这里调用的是组件的实例对象
+          console.log(this);
+        },
+      },
+    });
+
+    // 再定义一个组件
+    const hello = Vue.extend({
+      template: `<h2>{{msg}}</h2>`,
+      data() {
+        return {
+          msg: "你好啊vue.component",
+        };
+      },
+    });
+
+    // 两个组件返回的完全不是一个东西,利用func的return方法，将新的结构对象返回来,vue.component
+    console.log(school);
+    school.a = 99;
+    console.log(school.a);
+    console.log(hello.a);
+
+    const vm = new Vue({
+      el: "#root",
+      components: { school, hello },
+    });
+
+    console.log(vm);
+  </script>
+</html>

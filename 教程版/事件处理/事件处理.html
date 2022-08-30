@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div class="root">
+      <h2>欢迎来到{{name}}</h2>
+      <button v-on:click="showInfo">点我提示信息</button>
+      <!-- 简写方式 -->
+      <button @click="showInfo">点我提示信息</button>
+      <button @click="showInfo($event)">点我提示信息</button>
+      <!-- 传参方式，必须把event也传进去 -->
+      <button @click="showInfo2(22, $event)">点我传参</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: ".root",
+      // 只有data里的数据需要数据代理，
+      data: {
+        name: "点击事件",
+      },
+
+      methods: {
+        // 配置事件回调
+        showInfo(a, b, c, d) {
+          // 只有a接受到了event
+          console.log(a, b, c, d);
+          console.log(a.target);
+          // this===vm，不推荐箭头方法
+          console.log(this === vm);
+          alert("同学你好");
+        },
+        // 配置事件回调
+        showInfo2(value, e) {
+          console.log(e.target);
+          alert(value);
+        },
+      },
+    });
+
+    console.log(vm);
+  </script>
+</html>

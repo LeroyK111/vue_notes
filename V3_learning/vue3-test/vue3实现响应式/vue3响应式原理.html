@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.10/vue.cjs.js" integrity="sha512-2e2aXOh4/FgkCAUyurkjk0Uw4m1gPcExFwb1Ai4Ajjg97se/FEWfrLG1na4mq8cgOzouc8qLIqsh0EGksPGdqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  
+</body>
+<script>
+  let person = {
+    name:'斩杀',
+    age:112
+  }
+
+  // 模拟vue3中的实现的响应式Proxy+Reflect，不通过Object.defineProperty
+  // const p = new Proxy(person, {
+  //   get(target, propName){
+  //     console.log('友人读取了p身上属性',target, propName);
+  //     return target[propName]
+  //   },
+  //   set(target, propName,value){
+  //     console.log("我要修改对象上的值了", target, propName,value);
+  //     return target[propName] = value
+  //   },
+  //   // 额外对象方法
+  //   deleteProperty(target, propName){
+  //     console.log("有人删除了属性", target, propName);
+  //     return delete target[propName]
+  //   }
+  // })
+
+
+
+  // 使用反射 window.reflect
+  let obj = {a:1, b:2};
+  console.log(window.reflect);
+
+  // 基本操作
+  console.log(Reflect.get(obj, 'a'));
+  let result = Reflect.set(obj, 'a', "我被改变了")
+  console.log(Reflect.get(obj, 'a'));
+  
+// 用 Reflect操作对象，存在状态返回值
+  console.log(result);
+  
+</script>
+</html>

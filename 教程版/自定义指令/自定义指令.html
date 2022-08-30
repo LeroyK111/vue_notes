@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>当前的n值是<span v-text="n"></span></h2>
+      <h2>放大十倍后的n值是<span v-big="n"></span></h2>
+      <!-- 长指令的写法 -->
+      <h2>放大十倍后的n值是<span v-big-www="n"></span></h2>
+
+      <button @click="n++">点我n+1</button>
+      <hr />
+      <input type="text" v-fbind:value="n" />
+      <hr>
+      <input type="text" v-gl:value="n">
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    // 定义全局自定义指令
+    Vue.directive('gl', {
+      // 指令与元素成功绑定时(一上来)，初始值reset
+      bind(element, bindding) {
+        console.log("bind");
+        element.value = bindding.value;
+      },
+      // 指令所在元素被插入页面时，create
+      inserted(element) {
+        console.log("inserted");
+        // 焦点聚集了
+        element.focus();
+      },
+      // 指令所在模板被重新解析时，update
+      update(element, bindding) {
+        console.log("update");
+        element.value = bindding.value;
+      },
+    });
+
+    const vm = new Vue({
+      el: "#root",
+      data() {
+        return {
+          n: 1,
+        };
+      },
+      // 自定义指令(局部指令，限制于vm)
+      directives: {
+        // 简单自定义指令
+        big(element, bindding) {
+          // 这里不靠返回值，单纯的就是操作DOM树.绑定数据
+          // console.log(element, bindding);
+          element.innerText = bindding.value * 10;
+          console.log("this指向的是window", this);
+        },
+        "big-www"(element, bindding) {
+          element.innerText = bindding.value * 10;
+        },
+
+        // 复杂自定义指令，执行时机是绑定时机，我们要使用高级指令
+        fbind: {
+          // 指令与元素成功绑定时(一上来)，初始值reset
+          bind(element, bindding) {
+            console.log("bind");
+            element.value = bindding.value;
+          },
+          // 指令所在元素被插入页面时，create
+          inserted(element) {
+            console.log("inserted");
+            // 焦点聚集了
+            element.focus();
+          },
+          // 指令所在模板被重新解析时，update
+          update(element, bindding) {
+            console.log("update");
+            element.value = bindding.value;
+          },
+        },
+      },
+    });
+  </script>
+</html>

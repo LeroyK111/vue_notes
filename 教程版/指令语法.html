@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div class="root">
+      <h1>指令语法</h1>
+      <!-- 当成表达式 v-bind： -->
+      <a v-bind:href="url">点我去学习1</a>
+      <!-- 简写形式 -->
+      <a :href="url1">点我去学习2</a>
+      <!-- 层级使用 -->
+      <a :href="school.student">{{school.idCard}}</a>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+    /*
+    Vue中有很多指令，且形式都是v-xxx:
+    */
+    new Vue({
+      el: ".root",
+      data: {
+        url: "https://www.baidu.com",
+        url1:'https://www.google.com',
+        // 构建层级，
+        school:{
+          student:'学生',
+          idCard: 1210
+        }
+      },
+    });
+
+    
+  </script>
+</html>

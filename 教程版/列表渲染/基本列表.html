@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>遍历数组</h2>
+      <ul>
+        <!-- 真的像模板语法 -->
+        <!-- key就是唯一标识符，循环必有，为了确定li的索引位置 -->
+        <li v-for="person in persons" :key="person.id">
+          {{person.name}}-{{person.age}}
+        </li>
+
+        <!-- 这种解构赋值也可以 -->
+        <li v-for="(p,index) in persons" :key="index">{{p}}-{{index}}</li>
+      </ul>
+      <!-- 遍历对象 -->
+      <h2>遍历对象</h2>
+      <ul>
+        <li v-for="(value,k) of car" :key="k">{{value}}---{{k}}</li>
+      </ul>
+      <!-- 遍历字符串 -->
+      <h2>遍历字符串</h2>
+      <ul>
+        <li v-for="(value,k) of str" :key="k">{{value}}---{{k}}</li>
+      </ul>
+       <!-- 遍历指定次数 -->
+       <h2>遍历指定次数</h2>
+       <ul>
+         <li v-for="(num, k) of 5" :key="k">自然数{{num}}---索引{{k}}</li>
+       </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          persons: [
+            { id: "001", name: "张三", age: 18 },
+            { id: "002", name: "王五", age: 19 },
+            { id: "003", name: "李四", age: 20 },
+          ],
+          car: {
+            name: "奥迪A8",
+            price: "70W",
+            color: "黑色",
+          },
+          str: "hallo",
+        };
+      },
+    });
+  </script>
+</html>

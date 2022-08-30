@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>{{n}}</h2>
+      <button @click="add">点我n+1</button>
+      <button @click="bye">点我销毁vue</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      // vm.$mount(el)外部设置并调用时，才继续执行
+      el: "#root",
+      // 开启模板化,里面可以为html字符串，组件时常用
+      template: ``,
+      data() {
+        return {
+          n:1
+        };
+      },
+      // 第一环节
+      beforeCreate() {
+        /*
+        初始化生命周期，无法访问到data中的数据和其他方法
+        */
+        console.log('beforeCreate', this);
+        // 手动添加断点
+        // debugger;
+      },
+      // 第二环节，开启数据监测和数据代理
+      created() {
+        console.log('created', this);
+        
+      },
+      // 第三环节，页面呈现的是，未经渲染的dom页面
+      beforeMount() {
+        // 自娱自乐
+        console.log('beforeMount');
+        // debugger;
+      },
+
+      methods: {
+        add() {
+          // 获取dom元素
+          console.log(this.$el);
+          this.n++;
+        },
+        bye(){
+          console.log("销毁一下");
+          // 解绑组件和自定义事件，但是元素绑定的普通事件回调保留
+          // 手动触发销毁环节，vm没了，工作成果保留
+          this.$destroy()
+        }
+      },
+
+      // 最后环节,dom渲染完毕，开启其他方法，开启定时器，网络IO，订阅消息，绑定自定义事件
+      mounted() {
+        console.log('mounted');
+      },
+
+
+      // 事件环节,监听数据更新，内存数据更新了，但是页面渲染未变
+      beforeUpdate() {
+        console.log('beforeUpdate');
+        console.log(this.n);
+        // debugger;
+      },
+      // 事件环节，页面和数据都是更新的
+      updated() {
+        console.log('updated');
+        console.log(this.n);
+      },
+      
+
+      // 收尾，关闭定时器，解绑事件等等
+      beforeDestroy() {
+        console.log('beforeDestroy');
+        // 由于已经不再执行dom渲染，内存可以操作，但页面完全不执行
+        console.log(this);
+      },
+      // 这个一般不管，
+      destroyed() {
+        console.log('destroyed');
+        console.log(this);
+        // debugger;
+      },
+    });
+
+  
+  </script>
+</html>

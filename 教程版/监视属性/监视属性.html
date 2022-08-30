@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>今天天气{{info}}, {{x}}</h2>
+      <!-- 使用简写，多个语句可以分号分割 -->
+      <button @click="changeWeather">切换天气</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          isHot: true,
+          x: 0,
+        };
+      },
+      computed: {
+        info() {
+          return this.isHot ? "炎热" : "凉爽";
+        },
+      },
+      // 我们不用注册这个，对于简单的取反，我们可以直接写道标签内
+      methods: {
+        changeWeather() {
+          this.isHot = !this.isHot;
+          this.x++;
+        },
+      },
+      // 监视属性
+      watch: {
+        // 监视data属性
+        isHot: {
+          // 初始化时，让handler调用一下
+          immediate: true,
+          handler(newValue, oldValue) {
+            // 一旦数据发生改变，我们可以知道该属性改变前后的值
+            console.log("isHot被修改了", newValue, oldValue);
+          },
+        },
+
+        // 监视计算属性
+        info: {
+          handler(newValue, oldValue) {
+            console.log("计算属性被修改了", newValue, oldValue);
+          },
+        },
+      },
+    });
+    // 第二种加入监视属性
+    v.$watch("x", {
+      immediate: true,
+      handler(newx, oldx) {
+        console.log(newx, oldx);
+      },
+    });
+
+    // 简写
+    v.$watch("x", function (newx, oldx) {
+      console.log(newx, oldx);
+    });
+    console.log(v);
+  </script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+    </div>
+  </body>
+
+  <script>
+    Vue.config.productionTip = false;
+    // 把他嵌套到school
+    const student = {
+      name: "student",
+      template: `<div><h2>学生:{{name}}</h2>
+      <h2>年龄:{{age}}</h2></div>`,
+      data() {
+        return {
+          name: "猪猪",
+          age: 18,
+        };
+      },
+    };
+
+    // 定义一个组件
+    const school = {
+      name: "school",
+      template: `<div>
+        <h2>学校:{{name}}</h2>
+        <h2>女校嘛:{{flag}}</h2>
+        <!-- 只能在这里引用嵌套的子组件 -->
+        <student/>
+      </div>`,
+      data() {
+        return {
+          name: "女子院校",
+          flag: true,
+        };
+      },
+      // 开始套娃嵌套注册，student必须先定义
+      components: {
+        student,
+      },
+    };
+
+    const text = {
+      name: "school的兄弟",
+      template: `<div>
+       <h2>{{name}}</h2>
+      </div>`,
+      data() {
+        return {
+          name: "我和school是平级的",
+        };
+      },
+    };
+
+    // 我们可以精简组件集合，说白了就是继续套娃
+    const app = {
+      template: `<div>
+        <school></school>
+        <my-text></my-text>
+      </div>`,
+      components: {
+        school,
+        'my-text':text,
+      },
+    };
+
+    const vm = new Vue({
+      // 继续套娃中。。。
+      template:`<app/>`,
+      el: "#root",
+      components: {
+        // 不使用分别注册，我们使用组件集合app注册
+        // school:school,
+        // 'my-text':text,
+        app,
+      },
+    });
+  </script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 显示隐藏 -->
+      <h2 v-show="a">{{name}}</h2>
+      <h2 v-show="1===1">{{name}}</h2>
+
+      <!-- v-if判断 -->
+      <h2 v-if="b">如果判断不成立，则直接删除元素节点</h2>
+      <h2 v-if="1===2">如果判断不成立，则直接删除元素节点</h2>
+
+      <!-- 做个小案例 -->
+      <h2>当前n值{{n}}</h2>
+      <button @click="n++">点我让n++</button>
+
+      <!-- 频率高的用v-show -->
+      <div v-show="n===1">展示一</div>
+      <div v-show="n===2">展示二</div>
+      <div v-show="n===3">展示三</div>
+
+      <!-- 频率低的 -->
+      <div v-if="n===1">展示一</div>
+      <!-- 形成了联动，只要有一个条件成立，则其余都不判断了 -->
+      <div v-else-if="n===1">展示二</div>
+      <div v-else-if="n===3">展示三</div>
+      <!-- 插入空行 可以打断判断，但会报错 -->
+      <!-- <div></div> -->
+      <!-- 可以直接不写任何值 -->
+      <div v-else="这里跟条件也是白搭">展示四</div>
+
+      <!-- 推荐模板标签，且只能使用v-if -->
+      <template v-if="n===1">
+        <h1>你好</h1>
+        <h1>世界</h1>
+      </template>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          name: "瞎整",
+          a: false,
+          b: true,
+          n: 0,
+        };
+      },
+    });
+  </script>
+</html>

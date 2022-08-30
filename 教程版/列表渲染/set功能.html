@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>学校{{school}}</h2>
+      <h2>学校地址{{address}}</h2>
+
+      <hr />
+      <h2>姓名{{student.name}}</h2>
+      <h2>年龄{{student.age}}</h2>
+      <!-- 追加属性 -->
+      <button @click="addsex">添加性别</button>
+      <h2 v-if="student.gender">性别{{student.gender}}</h2>
+      <h2>朋友</h2>
+      <ul>
+        <li v-for="(f, key) in student.friends" :key="key">
+          {{f.name}}----{{f.age}}
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          school: "华东交通大学",
+          address: "江西",
+          student: {
+            name: "张三",
+            age: 26,
+            friends: [
+              { name: "jerry", age: 32 },
+              { name: "李四", age: 32 },
+            ],
+          },
+        };
+      },
+      methods: {
+        addsex(){
+          // 添加修改属性
+          this.$set(v.student, "gender", "男");
+          // 大坑  _data作为根数据，无法直接添加对象
+        }
+      },
+    });
+    // 方法一  v.student===v._data.student
+    // Vue.set(v.student, "gender", "男");
+
+    // 追加属性，必须追加到_data上，方法二
+    // v.$set(v._data.student, "gender", "男");
+  </script>
+</html>

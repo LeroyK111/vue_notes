@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>今天天气{{info}}, {{x}}</h2>
+      <!-- 使用简写，多个语句可以分号分割 -->
+      <button @click="isHot = !isHot;x++">切换天气</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const v = new Vue({
+      el: "#root",
+      data() {
+        return {
+          isHot: true,
+          x:1
+        };
+      },
+      computed: {
+        info() {
+          return this.isHot ? "炎热" : "凉爽";
+        },
+      },
+      // 我们不用注册这个，对于简单的取反，我们可以直接写道标签内
+      // methods: {
+      //   changeWeather(){
+      //     this.isHot = !this.isHot
+      //   }
+      // },
+    });
+    console.log(v);
+  </script>
+</html>

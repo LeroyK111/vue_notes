@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/vue@2.6.14.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <form action="javascript:;" method="post" @submit.prevent="demo">
+        <label for="username">账号:</label>
+        <!-- trim去除空格 -->
+        <input type="text" id="username" v-model.trim="userInfo.username" /><br />
+        <label for="password">密码:</label>
+        <input type="password" id="password" v-model="userInfo.password" /><br />
+        <label for="password">密码:</label>
+        <!-- 一般两个同时使用 -->
+        <input type="number" id="age" v-model.number="userInfo.age" /><br />
+        性别：
+        <!-- 选项必须设置value值 -->
+        <input
+          type="radio"
+          id="boy"
+          name="gender"
+          v-model="userInfo.gender"
+          value="male"
+        />男
+        <input
+          type="radio"
+          id="girl"
+          name="gender"
+          v-model="userInfo.gender"
+          value="female"
+        />女<br />
+        爱好: 学习<input
+          type="checkbox"
+          name=""
+          value="study"
+          v-model="userInfo.hobby"
+        />
+        游戏<input type="checkbox" name="" value="game" v-model="userInfo.hobby" />
+        创作<input type="checkbox" name="" value="creation" v-model="userInfo.hobby" />
+        <br />
+        <select name="" v-model="userInfo.adderss">
+          <option value="beijing">北京</option>
+          <option value="shanghai">上海</option>
+        </select>
+        <br />
+
+        其他信息
+        <!-- 加入lazy事件，则失去焦点时再读取数据 -->
+        <textarea
+          name=""
+          cols="30"
+          rows="10"
+          style="resize: none"
+          v-model.lazy="userInfo.other"
+          
+        ></textarea>
+        <br />
+        是否接受用户协议<input
+          type="checkbox"
+          name=""
+          v-model="userInfo.userReader"
+          value="true"
+        />
+        <a href="#">阅读用户协议</a>
+        <br />
+        <button>提交</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: "#root",
+      data() {
+        return {
+          userInfo:{username: "",
+          password: "",
+          gender: "",
+          hobby:[],
+          adderss:"",
+          age:18,
+          other:"",
+          userReader:false}
+        };
+      },
+      methods: {
+        demo(){
+          console.log(JSON.stringify(this.userInfo));
+        }
+      },
+    });
+  </script>
+</html>
