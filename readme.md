@@ -454,15 +454,17 @@ Vue3则不同
 
 ![image-20220705114143597](readme.assets/image-20220705114143597.png)
 
-
-
-
-
-
-
 ### vue3生命周期
 
 ![实例的生命周期](readme.assets/lifecycle.svg)
+
+## 混合开发hybrid
+
+- 配合 [Electron](https://www.electronjs.org/) 或 [Tauri](https://tauri.studio/en/) 构建桌面应用
+- 配合 [Ionic Vue](https://ionicframework.com/docs/vue/overview) 构建移动端应用
+- 使用 [Quasar](https://quasar.dev/) 用同一套代码同时开发桌面端和移动端应用
+
+
 
 
 
