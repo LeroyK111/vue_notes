@@ -1,10 +1,226 @@
 # VUE前端框架
 
-## 官方
+## 背景知识
 
-https://staging-cn.vuejs.org/guide/introduction.html#what-is-vue
+**目前vue2已经不再被维护，但vue3依然继承了很多vue2的理念和接口，我们依然需要先从vue2开始学习。**
 
-组件化模式：
+**vue2文档**：https://v2.vuejs.org/
+
+★**vue3文档**：https://vuejs.org/
+
+**官方全局状态管理**：
+
+vuex：https://vuex.vuejs.org/zh/
+
+★pinia：https://pinia.vuejs.org/zh/
+
+**官方路由：**
+
+★Vue-Router：https://router.vuejs.org/zh/
+
+TanStack-Router：https://tanstack.com/router/v1/docs/overview
+
+**官方脚手架**：
+
+★Vite：https://cn.vitejs.dev/
+
+vue-cli：https://cli.vuejs.org/zh/
+
+**vscode插件**：
+
+vue3：https://github.com/johnsoncodehk/volar
+
+vue2：https://marketplace.visualstudio.com/items?itemName=octref.vetur
+
+**浏览器vue插件**：
+
+https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
+
+**SFC插件**：
+
+GraphQL插件1：https://gridsome.org/docs/querying-data/
+
+GraphQL插件2： https://github.com/wheatjs/vite-plugin-vue-gql
+
+高级自定义插件：https://cn.vuejs.org/guide/scaling-up/tooling.html#sfc-custom-block-integrations
+
+**jsx语法支持：**
+
+跟脚手架配置有关。
+
+vite：https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue-jsx
+
+vue-cli：https://github.com/vuejs/babel-plugin-jsx/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md
+
+**测试框架:**
+
+vite：https://vitest.dev/
+
+Cypress：https://www.cypress.io/
+
+**后端框架**：
+
+Nuxt: https://nuxt.com/
+
+Vite-SSR: vite工具自带插件https://cn.vitejs.dev/guide/ssr.html
+
+### vue的特点
+
+**根据SFC插件+脚手架插件的各种支持，我们应当选择合适的lang=""**
+
+SFC组件化模式：
+
+~/components/child.vue
+
+```
+<template lang="pug">
+  <!-- 组件模板HTML区域，这里我们开启pug模板渲染模式 -->
+  <div class="example">{{ msg }}</div>
+</template>
+
+<script lang="ts">
+// 组件js区域，这里我们使用ts代码
+export default {
+  data() {
+    return {
+      msg: 'Hello world!'
+    }
+  }
+}
+</script>
+
+<style lang="less">
+/* 样式组件，这里我们使用less样式 */
+.example {
+  color: red;
+}
+</style>
+
+<custom1>
+  自定义模块，这里不常用，一般用来装载vue专属插件，实现更多功能。
+</custom1>
+```
+
+#### 小技巧
+
+```
+# vue3比vue2更好的写法。
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+// 响应式变量
+const count = ref(0)
+
+// 变量
+const msg = 'Hello!'
+
+// 函数
+function log() {
+  console.log(msg)
+}
+</script>
+```
+
+```
+# scoped标签让样式只影响当前组件
+<style lang="less" scoped>
+.example {
+  color: red;
+}
+/* 如果想要某个样式影响子节点 */
+.a :deep(.b) {
+  /* 使用:deep(el) */
+}
+/* 如果想要某个样式影响插槽 */
+:slotted(div) {
+  color: red;
+}
+/* 如果想要某个样式影响全局 */
+:global(.red) {
+  color: red;
+}
+</style>
+```
+混合全局样式和局部样式
+
+```
+<style>
+/* 全局样式 */
+</style>
+
+<style scoped>
+/* 局部样式 */
+</style>
+```
+
+动态组件
+
+```
+<script setup>
+import Foo from './Foo.vue'
+import Bar from './Bar.vue'
+</script>
+
+<template>
+  <component :is="Foo" />
+  <component :is="someCondition ? Foo : Bar" />
+</template>
+```
+
+递归组件
+
+```
+import { FooBar as FooBarChild } from './components'
+```
+
+命名空间组件
+
+```
+<script setup>
+import * as Form from './form-components'
+</script>
+
+<template>
+  <Form.Input>
+    <Form.Label>label</Form.Label>
+  </Form.Input>
+</template>
+```
+
+自定义指令
+
+```
+<script setup>
+const vMyDirective = {
+  beforeMount: (el) => {
+    // 在元素上做些操作
+  }
+}
+</script>
+<template>
+  <h1 v-my-directive>This is a Heading</h1>
+</template>
+```
+
+```
+<script setup>
+import { myDirective as vMyDirective } from './MyDirective.js'
+</script>
+```
+
+推荐使用ts语法
+
+```
+<script setup>
+const props = defineProps({
+  foo: String
+})
+
+const emit = defineEmits(['change', 'delete'])
+// setup 代码
+</script>
+```
+
 
 ![image-20220625121810770](readme.assets/image-20220625121810770.png)
 
@@ -14,15 +230,73 @@ https://staging-cn.vuejs.org/guide/introduction.html#what-is-vue
 
 ![image-20220625122645442](readme.assets/image-20220625122645442.png)
 
+css modules 模块化
+
+推荐使用文件格式**style.module.css**。
+
+但在**.vue**文件中，一个 `<style module>` 标签会被编译为 [CSS Modules](https://github.com/css-modules/css-modules) 并且将生成的 CSS class 作为 **`$style` 对象**暴露给组件：
+
+```
+<template>
+  <p :class="$style.red">This should be red</p>
+</template>
+
+<style module>
+.red {
+  color: red;
+}
+</style>
+```
+
+```
+<template>
+  <p :class="classes.red">red</p>
+</template>
+
+<style module="classes">
+/* 可以带入命名空间 */
+.red {
+  color: red;
+}
+</style>
+```
+
+如果想要多次调用模块化css，除了import外，还可以通过一个钩子。
+
+```
+import { useCssModule } from 'vue'
+
+// 在 setup() 作用域中...
+// 默认情况下, 返回 <style module> 的 class
+useCssModule()
+
+// 具名情况下, 返回 <style module="classes"> 的 class
+useCssModule('classes')
+
+```
+
+同时也支持，动态组件的样式绑定法
+
+```
+<script setup>
+const theme = {
+  color: 'red'
+}
+</script>
+
+<template>
+  <p>hello</p>
+</template>
+
+<style scoped>
+p {
+  color: v-bind('theme.color');
+}
+</style>
+
+```
+
 ## v2开始学习
-
-Vue开发插件，2.0版本必须安装的
-
-https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
-
-其他版本
-
-https://devtools.vuejs.org/guide/installation.html
 
  避免开发环境提示，我们可以全局配置，
 
