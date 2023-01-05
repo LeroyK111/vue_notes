@@ -36,6 +36,5 @@ export default function (params) {
   // 将处理的过的对象返回出去
   // return {point}
   // 单数据，推荐直接返回
-  return point
-
+  return point;
 }
