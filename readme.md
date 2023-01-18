@@ -28,9 +28,9 @@ vue-cli：https://cli.vuejs.org/zh/
 
 **vscode插件**：
 
-vue3：https://github.com/johnsoncodehk/volar
+vue3：https://cn.vuejs.org/guide/typescript/overview.html#ide-support
 
-vue2：https://marketplace.visualstudio.com/items?itemName=octref.vetur
+vue2：自己找一下吧
 
 **浏览器vue插件**：
 
@@ -738,7 +738,11 @@ Vue3则不同
 - 配合 [Ionic Vue](https://ionicframework.com/docs/vue/overview) 构建移动端应用
 - 使用 [Quasar](https://quasar.dev/) 用同一套代码同时开发桌面端和移动端应用
 
+## 小技巧
 
+### object响应式
+
+![image-20230118182843044](readme.assets/image-20230118182843044.png)
 
 
 
