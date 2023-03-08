@@ -9,6 +9,9 @@
     <ul>
       <li v-for="item in userList" :key="item.id" v-text="item.name"></li>
     </ul>
+    <ul v-for="x in [1,2,3]" key="x">
+      <li>{{ x | fi1 }}</li>
+    </ul>
   </div>
 </template>
 
@@ -34,6 +37,11 @@ export default {
     ...mapMutations("userAll", ["addUser"]),
     ...mapActions("userAll", ["addPerServer"])
   },
+  filters: {
+    fi1(value){
+      return value
+    }
+  }
 };
 </script>
 
