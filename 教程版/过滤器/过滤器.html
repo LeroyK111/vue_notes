@@ -19,7 +19,6 @@
       <h3>现在是:{{timer | timeFormater}}</h3>
       <h3>现在是:{{timer | timeFormater('YYYY-MM-DD')}}</h3>
       <h3>现在是:{{timer | timeFormater('YYYY-MM-DD') | mySlice |guolvqi}}</h3>
-
       <!-- 这个太罕见了 -->
       <h3 :x="msg | guolvqi">配置绑定数据的过滤器</h3>
     </div>
@@ -28,8 +27,7 @@
     Vue.config.productionTip = false;
     // 注册一个全局过滤器
     Vue.filter("guolvqi", function (value) {console.log("我是全局过滤器"); return value;})
-
-
+    
     const vm = new Vue({
       el: "#root",
       data() {
