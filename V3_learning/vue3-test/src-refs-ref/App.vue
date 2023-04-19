@@ -1,6 +1,6 @@
 <template>
 <button @click="isShow = !isShow">挂载/卸载</button>
-<HelloWorld v-if="isShow"></HelloWorld>
+<HelloWorld v-if="isShow" ref="childrefs"></HelloWorld>
 </template>
 
 <script>
@@ -22,7 +22,8 @@ export default {
     let isShow = ref(true)
 
     return {
-      isShow
+      isShow,
+      childrefs
     }
   }
 };

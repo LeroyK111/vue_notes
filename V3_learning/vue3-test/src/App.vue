@@ -1,19 +1,24 @@
 <template>
   <div class="app">
     <h1>我是App组件</h1>
-    <Child></Child>
+    <!-- 利用子组件的defineExpose 就可以完成子向父传递消息 -->
+    <Child @add="handleAdd" ref="childRefs"></Child>
   </div>
 </template>
 
-<script>
+<script setup>
+import {ref, onMounted} from "vue";
 import Child from "./components/Child.vue";
 
-export default {
-  name: "App",
-  components: {
-    Child,
-  },
-};
+// 利用事件回调传递消息
+const handleAdd = value => {console.log(value);}
+
+const childRefs = ref(null)
+
+onMounted(() => {
+  console.log(childRefs.value.child);
+})
+
 </script>
 
 <style>

@@ -32,6 +32,7 @@ import {
   watchEffect,
   toRef,
   toRefs,
+  defineExpose
 } from "vue";
 
 export default {
