@@ -24,7 +24,6 @@ const child = ref("setup语法糖")
 // 子组件暴露给父组件
 defineExpose({ child })
 
-
 </script>
 
 <style scoped>

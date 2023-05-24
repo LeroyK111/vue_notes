@@ -34,7 +34,6 @@ import {
   toRefs,
   unref,
   isRef,
-  defineExpose
 } from "vue";
 
 export default {

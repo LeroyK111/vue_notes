@@ -19,9 +19,6 @@ onMounted(() => {
   console.log(childRefs.value.child);
 })
 
-
-
-
 </script>
 
 <style>
