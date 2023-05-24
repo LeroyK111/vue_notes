@@ -14,6 +14,13 @@ vuex：https://vuex.vuejs.org/zh/
 
 ★pinia：https://pinia.vuejs.org/zh/
 
+**事件总线**：
+如果你还想念事件总线的话。。。
+
+tiny-emitter： https://www.npmjs.com/package/tiny-emitter
+
+mitt: https://www.npmjs.com/package/mitt
+
 **官方路由：**
 
 ★Vue-Router：https://router.vuejs.org/zh/

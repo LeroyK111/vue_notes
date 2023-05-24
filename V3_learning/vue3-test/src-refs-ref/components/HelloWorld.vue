@@ -32,6 +32,9 @@ import {
   watchEffect,
   toRef,
   toRefs,
+  unref,
+  isRef,
+  defineExpose
 } from "vue";
 
 export default {
@@ -44,6 +47,7 @@ export default {
         msg: "监视深层次的变换，还需要开启deep",
       },
     });
+
 
     let person1 = reactive({
       a: "死亡",
@@ -63,6 +67,18 @@ export default {
     const x = toRefs(person1);
     console.log(x);
 
+    methods: {
+      greet() {
+        // 判断是不是响应式对象
+        console.log(isRef(name2));
+      }
+      click() {
+        // 本质是: val = isRef(val) ? val.value : val
+        x = unref(name1)
+        console.log(x);
+      }
+    }
+
     return {
       person,
       name1,
@@ -71,8 +87,8 @@ export default {
       name3: ref(person.name),
       // 导入对象，记住命名最好不要冲突
       ...x,
-    };
-  },
+    }
+  }
 };
 </script>
 
