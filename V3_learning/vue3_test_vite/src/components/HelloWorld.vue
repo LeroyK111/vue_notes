@@ -17,8 +17,6 @@ export default {
     // 响应式语法糖已经废弃
     // let count2 = $ref()
 
-
-
     return {
       count: 0
     }
