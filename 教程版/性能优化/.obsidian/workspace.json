@@ -1,0 +1,165 @@
+{
+  "main": {
+    "id": "1f873339c8495758",
+    "type": "split",
+    "children": [
+      {
+        "id": "ea301aafc09ee7d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1272f7f50a25536d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "readme.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d5e13dd27797a07a",
+    "type": "split",
+    "children": [
+      {
+        "id": "7954a1168cffcbb5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "622096582087ad67",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "456768f4590eb802",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "a48117635b71266c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "right": {
+    "id": "bfde22e0a00573c3",
+    "type": "split",
+    "children": [
+      {
+        "id": "c19d08948c9775a5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "578e5fe33969c4a1",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "readme.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "df8c9815fd712228",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "readme.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "71dd6aebb3ff4d56",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "0ebe92b54afe3624",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "readme.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "1272f7f50a25536d",
+  "lastOpenFiles": [
+    "readme.assets/Pasted image 20230711213419.png",
+    "readme.assets/Pasted image 20230711213341.png",
+    "readme.assets/Pasted image 20230711213315.png",
+    "readme.assets/Pasted image 20230711213230.png",
+    "readme.assets/Pasted image 20230711213154.png",
+    "readme.assets/Pasted image 20230711213134.png",
+    "readme.assets/Pasted image 20230711213108.png",
+    "readme.assets/Pasted image 20230711213033.png",
+    "readme.assets/Pasted image 20230711213018.png",
+    "readme.assets/Pasted image 20230711212913.png",
+    "readme.assets/Pasted image 20230711212858.png",
+    "readme.assets"
+  ]
+}
