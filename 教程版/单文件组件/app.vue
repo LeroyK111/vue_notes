@@ -22,4 +22,31 @@ export default {
 };
 </script>
 
+
+
+
+
+<script>
+// 实现多script，不同语法的脚本，比如这里是选项式
+  export default {
+    name: 'CustomName',
+    inheritAttrs: false,
+    customOptions: {}
+  }
+</script>
+
+<script setup>
+// 实现多script，不同语法的脚本，比如这里是组合式
+import { defineAsyncComponent } from "vue"
+// 这里实现了一个异步组件。
+const asyncComp = defineAsyncComponent(()=>{
+  return import("./app.vue")
+})
+  
+</script>
+
+
+
+
+
 <style></style>
