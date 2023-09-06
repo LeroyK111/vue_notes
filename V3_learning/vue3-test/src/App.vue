@@ -19,6 +19,13 @@ onMounted(() => {
   console.log(childRefs.value.child);
 })
 
+
+// 引入静态资源，
+// ! base64 <img src="data:image/png;base64,iVBYKIGloxxxxxxxxxxxxxxxxxxx...">
+// ! import img from '../images/demo.png'
+// ! require('../images/demo.png')
+// ! 动态绝对路径 <img :src="publicPath + 'images/demo.jpg'" alt="">
+
 </script>
 
 <style>
