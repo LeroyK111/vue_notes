@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "7e537c69327fbaba",
@@ -135,8 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -148,6 +146,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f8c85275628fb837",
-  "lastOpenFiles": []
+  "active": "fe3a72558ea87d66",
+  "lastOpenFiles": [
+    "readme.assets/Pasted image 20231212212448.png",
+    "readme.assets/Pasted image 20231212212427.png"
+  ]
 }

@@ -347,7 +347,8 @@ Vue.config.productionTip = false;
 
 ![image-20220627215833839](readme.assets/image-20220627215833839.png)
 
-### Vue实例化![image-20220627221320385](readme.assets/image-20220627221320385.png)
+### Vue实例化
+![image-20220627221320385](readme.assets/image-20220627221320385.png)
 
 ### el和data扩展写法
 
@@ -452,8 +453,7 @@ vue中监听的只有属性值，当不通过属性值进行传参的改变时�
 最主要时可以后期往data添加元素。
 
 ![image-20220629010302506](readme.assets/image-20220629010302506.png)
-
-### ![image-20220629011611670](readme.assets/image-20220629011611670.png)
+![image-20220629011611670](readme.assets/image-20220629011611670.png)
 
 ### 表单
 
@@ -742,6 +742,44 @@ Vue3则不同
 ### vue3生命周期
 
 ![实例的生命周期](readme.assets/lifecycle.svg)
+ 
+### Vue 3 “Vapor Mode”
+
+```
+Vapor 模式是受 Solid.js 启发的一种新的替代编译策略。它旨在通过将代码编译为更高效的 JavaScript 输出来增强应用的性能。
+
+当在应用级别使用时，可以完全删除虚拟 DOM，从而减少应用的包大小。
+
+✅ 使用 Vapor Mode 的好处如下：
+
+- 性能更佳
+    
+- 使用更少的内存
+    
+- 需要更少的运行时支持代码。
+    
+
+Solid.js 具有与 Vue 非常相似的响应式系统，它们都在其响应式系统中使用代理，
+```
+
+![](readme.assets/Pasted%20image%2020231212212427.png)
+最终目标是在同一个应用中自由混合 Vapor 和非 Vapor 组件。
+
+![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/EO58xpw5UMNJLrO6BZuFpUY5A0Xnicz5J4Ckzu48FX6DdEDuk3AWRmTYzCsruP0QGlLY3VHFxr8R5uLicXmfFPDg/640?wx_fmt=png&from=appmsg&wxfrom=5&wx_lazy=1&wx_co=1)
+
+  
+
+注意：Vapor Mode 最初将仅使用 Vapor 树集成到 vDOM 中，并在此基础上逐步提高它们之间的互操作性。
+
+![](readme.assets/Pasted%20image%2020231212212448.png)
+通过这种方式编译的应用程序将能够完全删除虚拟 DOM 运行时，只包含极为轻量级的`@vue/reactivity`和 vapor mode 运行时辅助程序。与当前使用 vDOM 的 Vue 3 应用的基线大小（约 50KB）相比，这样编写应用的基线大小仅为约 6KB，实现了高达 88%的压缩比！
+
+**关键点**
+
+1. 这是一项可选功能，不会影响现有的代码库。如果计划将 Vue 版本升级到包含 Vapor Mode 的版本，这不会引入任何与 Vapor Mode 相关的重大更改。
+    
+2. Vapor Mode 将能够与 vDOM 组件进行互操作。因此，如果希望使用像 Vuetify 这样的虚拟 DOM 库， Vapor Mode 仍然能够支持它。
+
 
 ## 混合开发hybrid
 
