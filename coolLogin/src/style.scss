@@ -1,0 +1,26 @@
+/* 全局样式 */
+
+// 指令
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+
+  body {
+    overflow: hidden;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
