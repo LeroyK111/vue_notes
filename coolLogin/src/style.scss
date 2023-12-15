@@ -1,26 +1,31 @@
 /* 全局样式 */
 
-// 指令
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
 
 
-  body {
-    overflow: hidden;
+
+@keyframes aureoleAnimation2 {
+  0% {
+    transform: rotate(0deg);
   }
-
-  li {
-    list-style: none;
-  }
-
-  a {
-    text-decoration: none;
+  100% {
+    transform: rotate(360deg);
   }
 }
