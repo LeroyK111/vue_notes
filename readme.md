@@ -781,6 +781,23 @@ Solid.js 具有与 Vue 非常相似的响应式系统，它们都在其响应式
 2. Vapor Mode 将能够与 vDOM 组件进行互操作。因此，如果希望使用像 Vuetify 这样的虚拟 DOM 库， Vapor Mode 仍然能够支持它。
 
 
+### vue3.4 log
+
+- vue3.4 完全重写了模版解析器。
+旧版本使用递归下降解析器，该解析器依赖了大量正则表达式和前向搜索。
+新的解析器使用基于htmlparser2的状态机tokenizer（分词器），它仅迭代了整个模版字符串一次。预计对SFC单文件组件，提升了44%的速度。
+
+- 更好的响应系统，双向绑定
+ref 双向绑定属性，只有当value发生切实变化时，才能出发watch和computer等方法。
+
+- 属性绑定同名简写
+```Template
+<img :id="id" :src="src" :alt="alt">
+# 简写
+<img :id :src :alt>
+```
+
+
 ## 混合开发hybrid
 
 - 配合 [Electron](https://www.electronjs.org/) 或 [Tauri](https://tauri.studio/en/) 构建桌面应用
