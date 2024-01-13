@@ -28,12 +28,14 @@ defineSlots<{
 
 
 // 实验性功能，解构赋值，但是不失去数据包装
-const { msg = 'hello' } = defineProps(['msg'])
+// const { msg = 'hello' } = defineProps(['msg'])
 
 
 // 双向绑定
 const modelValue = defineModel()
 console.log(modelValue.value)
+
+
 
 
 </script>
