@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @author Leroy
+ * h函数的问题，事件可以正常绑定，插槽不行，双向数据绑定不行
+*/
 import { ref, reactive, h, toRefs, toRef, computed } from "vue";
 
 const option = reactive({
