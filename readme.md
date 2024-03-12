@@ -811,3 +811,60 @@ ref 双向绑定属性，只有当value发生切实变化时，才能出发watch
 ![image-20230118182843044](readme.assets/image-20230118182843044.png)
 
 
+## 特殊知识
+
+- Suspense 提供改进的加载和错误处理机制异步组件；
+- Provide/Inject 简化了组件之间的数据传输和通信。
+-  渲染函数h(), 当你需要附加其他属性时, 会导致失去响应式. 坑啊
+
+
+### 传送组件teleport
+将插槽传送到外面dom树上
+```vue
+<template>
+  <div>
+    <!-- Other component -->
+    <teleport to="body">
+      <!-- Popup box content -->
+    </teleport>
+  </div>
+</template>
+```
+
+### 多组件封装fragment
+```vue
+
+<template>
+  <fragment>
+    <h1>your title</h1>
+    <p>this is a test content</p>
+  </fragment>
+</template>
+```
+
+
+
+### 定制指令
+
+```vue
+
+<template>
+  <div>
+    <input v-auto-focus />
+  </div>
+</template>
+
+<script>
+export default {
+  directives: {
+    autoFocus: {
+      mounted(el) {
+        el.focus();
+      }
+    }
+  }
+};
+</script>
+
+```
+

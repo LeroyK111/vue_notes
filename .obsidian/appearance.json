@@ -1,4 +1,5 @@
 {
   "accentColor": "",
-  "showViewHeader": false
+  "showViewHeader": false,
+  "theme": "obsidian"
 }
