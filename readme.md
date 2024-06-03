@@ -72,6 +72,10 @@ Nuxt: https://nuxt.com/
 
 Vite-SSR: vite工具自带插件https://cn.vitejs.dev/guide/ssr.html
 
+**好用的拖拽**：
+VueDraggablePlus
+
+
 ### vue的特点
 
 什么是渐进式？
