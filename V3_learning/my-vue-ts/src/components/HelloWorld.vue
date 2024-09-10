@@ -3,8 +3,13 @@ import { onActivated, onDeactivated, ref } from 'vue'
 import Son from "./Son.vue"
 import Girl from "./Girl.vue"
 
-defineProps<{msg: string}>()
+// defineProps<{msg: string}>()
 const showHide = ref("Son")
+
+
+// v3.5 支持解构响应式了
+const { count = 0, msg} = defineProps<{  count?: number , msg?: string}>()
+
 
 /**
  * @author Leroy
