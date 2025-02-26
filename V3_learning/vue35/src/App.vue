@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useId, watch } from "vue";
 
+import WatchComs from "./components/WatchComs.vue";
+
 /**
  * @author Leroy
 
@@ -41,7 +43,6 @@ scope.stop();
 count.set(3); // No console output
 */
 
-
 // 其实原理很简单，就是调用 getCurrentInstance 这个，这个 API 会返回当前 Vue 实例的信息对象，而这个信息对象身上有一个 ids 的数组，而 useId 就是根据这个数组去生成唯一 ID 的
 const id = useId();
 console.log(id);
@@ -54,6 +55,7 @@ console.log(id);
   <!-- <div>{{ count }}</div> -->
   <label :for="id">名称</label>
   <input type="text" :id="id" />
+  <WatchComs></WatchComs>
 </template>
 
 <style scoped></style>
