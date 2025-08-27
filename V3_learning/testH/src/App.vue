@@ -25,6 +25,8 @@ const dom = h("div", {
   innerText: option.innerText,
   onClick: click,
 });
+
+
 </script>
 
 <template>

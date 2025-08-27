@@ -75,6 +75,9 @@ Vite-SSR: vite工具自带插件https://cn.vitejs.dev/guide/ssr.html
 **好用的拖拽**：
 VueDraggablePlus
 
+**打印专用插件**
+vue-print-nb
+
 
 ### vue的特点
 
