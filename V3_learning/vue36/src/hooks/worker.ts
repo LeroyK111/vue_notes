@@ -1,12 +1,14 @@
 // worker.ts
 export {}
 
-declare const self: DedicatedWorkerGlobalScope;
 
-self.onmessage = (event: MessageEvent) => {
+
+const ctx = self as DedicatedWorkerGlobalScope
+
+ctx.onmessage = (event: MessageEvent) => {
   console.log("👷 工人收到任务:", event.data)
   const result = doHeavyWork(event.data as number)
-  self.postMessage(result)
+  ctx.postMessage(result)
 }
 
 // 模拟耗时计算

@@ -8,7 +8,7 @@ const myWorker = new Worker(new URL('@/hooks/worker.ts', import.meta.url), {type
 
 
 console.log('主线程：任务已派发，我可以继续做别的事！');
-const timer = (ms) => new Promise((resolve)=>setTimeout(resolve, ms))
+const timer = (ms: number) => new Promise((resolve)=>setTimeout(resolve, ms))
 
 
 const list = [...Array(3).keys()].map(x=> 3*(x+1))
