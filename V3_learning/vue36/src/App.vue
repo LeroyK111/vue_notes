@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, nextTick, reactive
+} from "vue";
 const computer = ref<number>(0)
 
 const myWorker = new Worker(new URL('@/hooks/worker.ts', import.meta.url), {type: "module"});
@@ -23,6 +24,22 @@ myWorker.onmessage = function(event) {
   computer.value = event.data
 };
 
+
+
+const count = ref(0)
+
+async function increment() {
+  count.value++
+
+  // DOM not yet updated
+  console.log(document.getElementById('counter').textContent) // 0
+  // 主要用在立刻获取最新的ref/reactive
+  await nextTick()
+  // DOM is now updated
+  console.log(document.getElementById('counter').textContent) // 1
+}
+
+
 </script>
 
 <template>
@@ -35,7 +52,15 @@ myWorker.onmessage = function(event) {
    使用真实dom构建vue项目
   </section>
 
+  <article>
+    
+  <button id="counter" @click="increment">{{ count }}</button>
+
+
+  </article>
  </div>
 </template>
 
 <style scoped></style>
+
+
