@@ -11,6 +11,10 @@
 <script setup lang="ts">
 import circleMark from "../assets/imgs/circleMark.png";
 import ringBase from "../assets/imgs/ringBase.png";
+
+
+
+
 </script>
 
 <style scoped lang="scss">
