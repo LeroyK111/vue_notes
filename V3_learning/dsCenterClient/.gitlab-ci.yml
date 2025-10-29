@@ -1,0 +1,20 @@
+image: registry.deepsight.ai/base-images/node:24.10.0
+
+stages:
+  - build
+
+build:
+  # 删除when即可手动构建
+  when: manual
+  stage: build
+  tags:
+    - linux-cvat
+  script:
+    - npm config set registry https://registry.yarnpkg.com/
+    - npm i --legacy-peer-deps
+    - npm run build
+    - mv dist docker/
+    - cd docker
+    - docker build -t registry.deepsight.ai/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} .
+    - docker push registry.deepsight.ai/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
+    - echo "registry.deepsight.ai/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}"

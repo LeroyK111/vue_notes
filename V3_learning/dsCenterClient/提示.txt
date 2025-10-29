@@ -1,0 +1,5 @@
+# 版本太新，需要规避报警
+
+npm i pinia-plugin-persistedstate --legacy-peer-deps
+npm install localforage --legacy-peer-deps
+npm install -D @types/localforage --legacy-peer-deps
