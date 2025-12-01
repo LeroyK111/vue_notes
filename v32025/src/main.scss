@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+body,
+html,
+#app {
+  width: 100%;
+  height: 100%;
+  -ms-text-autospace: ideograph-alpha, ideograph-numeric, punctuation;
+  text-autospace: ideograph-alpha, ideograph-numeric, punctuation;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}

@@ -1,0 +1,3 @@
+# 版本太新，需要规避报警才能安装
+
+npm i --legacy-peer-deps
