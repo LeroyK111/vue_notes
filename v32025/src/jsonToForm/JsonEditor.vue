@@ -1,9 +1,4 @@
 <template>
-  <div class="box">
-    <div v-if="props.preview" class="preview">
-      <n-code :code="JSON.stringify(props.value, null, 4)" language="json" />
-    </div>
-
     <div class="json-item">
       <n-card
         v-if="isComplex"
@@ -112,59 +107,98 @@
         </n-input-group>
       </div>
     </div>
-  </div>
+
 </template>
 
+
+
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, watchEffect, ref } from 'vue';
 import {
   NCard, NSpace, NTag, NButton, NInput, NInputNumber,
-  NSwitch, NInputGroup, NSelect, NPopover, useMessage, NCode
+  NSwitch, NInputGroup, NSelect, NPopover, useMessage, NCode,
+
 } from 'naive-ui';
-// @ts-ignore
-import JsonEditor from './JsonEditor.vue';
+import type { ArchetypeValue, SchemaNode, SchemaType } from './@types/schema';
+import JsonEditor from "./JsonEditor.vue"
 
-// 1. 数据结构与类型定义 (SchemaNode)
-export type SchemaType = 'string' | 'number' | 'boolean' | 'object' | 'array';
 
-export interface SchemaNode {
-  key: string;       
-  title: string;     
-  type: SchemaType;  
-  value?: any;       
-  children?: SchemaNode[]; 
-}
-
-/**
- * @author Leroy
-value = {
-    key: "ROOT",
-    title: "JSON 参数根节点",
-    type: "object",
-    children: [] // 对应原始 JSON 的 {}
-}; 
-*/
-
-// 2. Props 和 Emits 定义
-interface Props {
-  value: SchemaNode; // 使用 value prop (通常是 v-model:value 的一部分)
+// Props 和 Emits 定义
+export interface Props {
+  value: SchemaNode;
   isRoot?: boolean;
-  preview?: boolean;
 }
+
 
 const props = withDefaults(defineProps<Props>(), {
   isRoot: false,
-  preview: false
 });
 
+
 const emit = defineEmits<{
-  (e: 'update:value', value: SchemaNode): void; // 每次更新必须发射全新的 SchemaNode 对象
+  (e: 'update:value', value: SchemaNode): void;
   (e: 'delete'): void;
+  (e: 'archetypeValue', value: ArchetypeValue): void;
 }>();
 
+// 展平
+function transformSchema(schema: any): any {
+    // 1. 处理数组类型 (如 children 数组)
+    if (Array.isArray(schema)) {
+        // 如果数组为空，返回空数组
+        if (schema.length === 0) {
+             return [];
+        }
+        // 递归处理数组中的每一项，并返回结果数组
+        return schema.map(transformSchema);
+    }
+    // 2. 确保当前项是有效的 SchemaNode 对象
+    if (typeof schema !== 'object' || schema === null || !schema.type) {
+        return schema;
+    }
+    const { key, type, value, children } = schema;
+    // 3. 定义子节点数组，若为空则设为 []
+    const safeChildren = children && Array.isArray(children) ? children : [];
+    // 4. 处理复杂类型节点 (Object/Array)
+    if (type === 'object') {
+        // 如果对象没有子节点，直接返回空对象
+        if (safeChildren.length === 0) {
+             return {};
+        }
+        const result: { [k: string]: any } = {};
+        for (const childNode of safeChildren) {
+            // 以子节点的 key 为键，递归处理子节点
+            if (childNode.key) {
+                result[childNode.key] = transformSchema(childNode);
+            }
+        }
+        return result;
+    } else if (type === 'array') {
+        // 如果数组没有子节点，直接返回空数组
+        if (safeChildren.length === 0) {
+             return [];
+        }
+        // 递归调用自身来处理数组的 children (它们可能是基本类型或更复杂的结构)
+        return safeChildren.map(transformSchema);
+    } 
+    // 5. 处理基本类型节点 (string, number, boolean)
+    else if (['string', 'number', 'boolean'].includes(type)) {
+        return value;
+    }
+    return null; 
+}
+
+
+watchEffect(()=>{
+  emit('archetypeValue', transformSchema(props.value));
+})
+
+
+
+// 弹窗
 const message = useMessage();
 
-// 3. 状态与计算属性
+// 状态与计算属性
 const newItemKey = ref<string>('');
 const newItemTitle = ref<string>('');
 const newItemType = ref<SchemaType>('string');
@@ -180,7 +214,7 @@ const typeOptions = [
 const isComplex = computed(() => ['object', 'array'].includes(props.value.type));
 const isArray = computed(() => props.value.type === 'array');
 
-// 4. 基本类型值更新 (Primitive Value)
+// 基本类型值更新 (Primitive Value)
 const updatePrimitiveValue = (val: any) => {
   // 核心：创建当前节点的副本，然后修改副本的 value 字段
   const newNode: SchemaNode = { 
@@ -192,7 +226,7 @@ const updatePrimitiveValue = (val: any) => {
   emit('update:value', newNode);
 };
 
-// 5. 更新子节点的值 (递归调用返回)
+// 更新子节点的值 (递归调用返回)
 const updateChild = (index: number, updatedChild: SchemaNode) => {
   // 1. 创建 children 数组的副本
   const newChildren = [...(props.value.children || [])];
@@ -210,7 +244,7 @@ const updateChild = (index: number, updatedChild: SchemaNode) => {
   emit('update:value', newNode);
 };
 
-// 6. 删除子节点 (结构性修改)
+// 删除子节点 (结构性修改)
 const deleteChild = (index: number) => {
   if (!props.value.children) return;
 
@@ -230,7 +264,7 @@ const deleteChild = (index: number) => {
   emit('update:value', newNode);
 };
 
-// 7. 新增子节点 (结构性修改)
+// 新增子节点 (结构性修改)
 const handleAddItem = () => {
   if (!newItemTitle.value) {
     message.warning('请输入中文标题');
@@ -250,7 +284,7 @@ const handleAddItem = () => {
     }
   }
 
-  let initVal: any = (newItemType.value === 'number') ? 0 : (newItemType.value === 'boolean') ? false : '';
+  const initVal: any = (newItemType.value === 'number') ? 0 : (newItemType.value === 'boolean') ? false : '';
 
   const newNode: SchemaNode = {
     key: isArray.value ? (props.value.children?.length || 0).toString() : newItemKey.value,
@@ -278,94 +312,85 @@ const handleAddItem = () => {
   newItemTitle.value = '';
   message.success('添加成功');
 };
+
+
+
+
+
+
 </script>
 
 <style scoped lang="scss">
-/* 样式保持不变 */
-.box {
+.json-item {
   width: 100%;
+}
+
+.nested-card {
+  margin-bottom: 10px;
+  border-left: 4px solid transparent;
+  transition: border-left-color 0.2s;
+}
+
+.field-label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.field-key-sub {
+  font-weight: normal;
+  color: #999;
+  font-size: 12px;
+  margin-left: 5px;
+  font-family: monospace;
+}
+
+/* Primitive Row */
+.primitive-row {
+  margin-bottom: 8px;
+}
+
+.label-btn {
+  min-width: 120px;
+  background-color: #fafafa;
+  color: #333;
+  font-weight: 600;
+  justify-content: flex-start;
+  user-select: none;
+  text-align: left;
+}
+
+.flex-input {
+  flex: 1;
+  text-align: left;
+}
+
+.input-wrapper {
+  border: 1px solid rgb(224, 224, 230);
+  background-color: #fff;
+  padding: 0 12px;
   display: flex;
-  flex-direction: column; 
-  gap: 10px;
+  align-items: center;
+  flex: 1;
+  height: 34px;
+}
 
-  .preview {
-    max-height: 200px;
-    overflow: auto;
-    background: #f4f4f4;
-    padding: 10px;
-  }
+.checkbox-wrapper {
+  justify-content: flex-start;
+}
 
-  .json-item {
-    width: 100%;
-  }
+/* Add Panel */
+.add-panel {
+  padding: 8px;
+  min-width: 200px;
+}
 
-  .nested-card {
-    margin-bottom: 10px;
-    border-left: 4px solid transparent;
-    transition: border-left-color 0.2s;
-  }
-
-  .field-label {
-    font-weight: bold;
-    font-size: 14px;
-    color: #333;
-  }
-
-  .field-key-sub {
-    font-weight: normal;
-    color: #999;
-    font-size: 12px;
-    margin-left: 5px;
-    font-family: monospace;
-  }
-
-  /* Primitive Row */
-  .primitive-row {
-    margin-bottom: 8px;
-  }
-
-  .label-btn {
-    min-width: 120px; 
-    background-color: #fafafa;
-    color: #333;
-    font-weight: 600;
-    justify-content: flex-start;
-    user-select: none;
-    text-align: left;
-  }
-
-  .flex-input {
-    flex: 1;
-    text-align: left;
-  }
-
-  .input-wrapper {
-    border: 1px solid rgb(224, 224, 230);
-    background-color: #fff;
-    padding: 0 12px; 
-    display: flex;
-    align-items: center;
-    flex: 1;
-    height: 34px; 
-  }
-
-  .checkbox-wrapper {
-    justify-content: flex-start;
-  }
-
-  /* Add Panel */
-  .add-panel {
-    padding: 8px;
-    min-width: 200px;
-  }
-
-  .empty-tip {
-    color: #ccc;
-    font-size: 12px;
-    padding: 10px;
-    text-align: center;
-    border: 1px dashed #eee;
-    border-radius: 4px;
-  }
+.empty-tip {
+  color: #ccc;
+  font-size: 12px;
+  padding: 10px;
+  text-align: center;
+  border: 1px dashed #eee;
+  border-radius: 4px;
 }
 </style>
